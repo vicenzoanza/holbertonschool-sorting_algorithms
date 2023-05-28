@@ -19,7 +19,7 @@ typedef struct listint_s
 
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
-int partition(int *array, int start, int end, size_t size);
+int partition(int *array, int lower, int higher, size_t size);
 void quick_sort_rec(int *array, int start, int end, size_t size);
 void print_array(const int *array, size_t size);
 

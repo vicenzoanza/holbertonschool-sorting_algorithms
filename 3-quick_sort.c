@@ -15,55 +15,60 @@ void quick_sort(int *array, size_t size)
 }
 
 /**
-  * quick_sort_rec - quick sort.
+  * quick_sort_rec - sort an array of integers.
   * @array: array.
-  * @start: start.
-  * @end: end.
+  * @lower: lower.
+  * @higher: higher.
   * @size: size.
   */
-void quick_sort_rec(int *array, int start, int end, size_t size)
+void quick_sort_rec(int *array, int lower, int higher, size_t size)
 {
-	int pivot;
+	int l_p = 0;
 
-	if (start < end)
+	if (lower < higher)
 	{
-		pivot = partition(array, start, end, size);
-		quick_sort_rec(array, start, pivot - 1, size);
-		quick_sort_rec(array, pivot + 1, end, size);
+		l_p = partition(array, lower, higher, size);
+		quick_sort_rec(array, lower, l_p - 1, size);
+		quick_sort_rec(array, l_p + 1, higher, size);
 	}
 }
 
 /**
-  * partition - partition.
-  * @array: array.
-  * @start: start.
-  * @end: end.
-  * @size: size.
+  * partition - divide a subarray into two parts around a pivot.
+  * @array: pointer
+  * @lower: lower
+  * @higher: higher
+  * @size: size of array.
   * Return: The new pivot.
   */
-int partition(int *array, int start, int end, size_t size)
+int partition(int *array, int lower, int higher, size_t size)
 {
-	int pivot, i, j, temp;
+	int i = 0, j = 0, pivot = 0, aux = 0;
 
-	pivot = array[end];
-	i = start - 1;
+	pivot = array[higher];
+	i = lower;
 
-	for (j = start; j <= end - 1; j++)
+	for (j = lower; j < higher; ++j)
 	{
 		if (array[j] < pivot)
-	{
-		i++;
-		temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-		print_array(array, size);
-	}
+		{
+			aux = array[i];
+			array[i] = array[j];
+			array[j] = aux;
+
+			if (aux != array[i])
+				print_array(array, size);
+
+			++i;
+		}
 	}
 
-	temp = array[i + 1];
-	array[i + 1] = array[end];
-	array[end] = temp;
+	aux = array[i];
+	array[i] = array[higher];
+	array[higher] = aux;
+
+	if (aux != array[i])
 	print_array(array, size);
 
-	return (i + 1);
+return (i);
 }
